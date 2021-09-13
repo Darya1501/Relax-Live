@@ -1,7 +1,7 @@
 const toggleBurgerMenu = () => {
   const menu = document.querySelector('.popup-menu'),
     menuDialog = menu.querySelector('.popup-dialog-menu'),
-    menuButton = document.querySelector('.menu'),
+    menuButtons = document.querySelectorAll('.menu'),
     closeButton = menuDialog.querySelector('.close-menu');
 
   const showMenu = () => {
@@ -16,21 +16,20 @@ const toggleBurgerMenu = () => {
     menuDialog.style.transform = transform;
   };
 
-  menuButton.addEventListener('click', () => {
-    showMenu();
+  menuButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      showMenu();
+    });
   });
 
   menu.addEventListener('click', event => {
     const target = event.target;
-    if (target.tagName === 'A' && target.closest('.popup-dialog-menu')) {
-      hideMenu();
-    } else if (target === closeButton) {
+    if (target.tagName === 'A' || target === closeButton) {
       hideMenu();
     } else if (!target.closest('.row')) {
       hideMenu();
     }
   });
-
 };
 
 export default toggleBurgerMenu;
