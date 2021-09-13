@@ -1,0 +1,27 @@
+{
+  "name": "RelaxLive",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "watch": "webpack --watch",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Darya1501/Relax-Live.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Darya1501/Relax-Live/issues"
+  },
+  "homepage": "https://github.com/Darya1501/Relax-Live#readme",
+  "devDependencies": {
+    "@babel/core": "^7.15.5",
+    "@babel/preset-env": "^7.15.6",
+    "babel-loader": "^8.2.2",
+    "webpack": "^5.52.1",
+    "webpack-cli": "^4.8.0"
+  }
+}
