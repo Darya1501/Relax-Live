@@ -5,6 +5,9 @@ import phoneMask from './modules/phoneMask';
 import togglePopup from './modules/togglePopup';
 import showTooltip from './modules/showTooltip';
 import typesRepairSliders from './modules/typesRepairSliders.js';
+import porfolioSliders from './modules/porfolioSliders.js';
+import transparencyBlock from './modules/transparencyBlock.js';
+import reviewsSlider from './modules/reviewsSlider.js';
 
 // Дополнительный номер в хедере
 togglePhoneList();
@@ -22,6 +25,11 @@ togglePopup('.popup-repair-types', '.link-list', '.close');
 showTooltip();
 // Слайдер в типах ремонта
 typesRepairSliders();
-
-
-
+// Слайдеры и модальное окно в блоке "Портфолио"
+porfolioSliders();
+// Блок документы
+transparencyBlock();
+// Консультация
+togglePopup('.popup-consultation', '.button_wide', '.close');
+// Слайдер с отзывами
+reviewsSlider();

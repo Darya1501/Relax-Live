@@ -81,6 +81,7 @@ const showTooltip = () => {
       if (currentSlide === 6) arrowRight.style.display = 'none';
     });
   }
+  window.addEventListener('resize', showTooltip);
 };
 
 export default showTooltip;
