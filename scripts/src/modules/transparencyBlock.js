@@ -76,6 +76,7 @@ const transparencyBlock = () => {
       if (currentSlide === slides.length - 1) arrowRight.style.display = 'none';
     });
   }
+  window.addEventListener('resize', transparencyBlock);
 };
 
 export default transparencyBlock;

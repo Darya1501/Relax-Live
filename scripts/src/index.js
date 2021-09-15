@@ -8,6 +8,7 @@ import typesRepairSliders from './modules/typesRepairSliders.js';
 import porfolioSliders from './modules/porfolioSliders.js';
 import transparencyBlock from './modules/transparencyBlock.js';
 import reviewsSlider from './modules/reviewsSlider.js';
+import accordion from './modules/accordion.js';
 
 // Дополнительный номер в хедере
 togglePhoneList();
@@ -33,3 +34,5 @@ transparencyBlock();
 togglePopup('.popup-consultation', '.button_wide', '.close');
 // Слайдер с отзывами
 reviewsSlider();
+// Аккордион с часто задаваемыми вопросами
+accordion();
