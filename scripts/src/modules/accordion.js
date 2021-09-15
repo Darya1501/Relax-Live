@@ -4,7 +4,6 @@ const accordion = () => {
     wrapper = document.querySelector('.accordion'),
     tabs = Array.from(wrapper.querySelectorAll('h2')),
     messages = Array.from(wrapper.querySelectorAll('.msg'));
-  console.log('tabs: ', tabs);
 
   let currentTab = 0;
 

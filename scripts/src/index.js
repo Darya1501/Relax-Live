@@ -9,6 +9,8 @@ import porfolioSliders from './modules/porfolioSliders.js';
 import transparencyBlock from './modules/transparencyBlock.js';
 import reviewsSlider from './modules/reviewsSlider.js';
 import accordion from './modules/accordion.js';
+import sendForm from './modules/sendForm.js';
+import validate from './modules/validator.js';
 
 // Дополнительный номер в хедере
 togglePhoneList();
@@ -36,3 +38,7 @@ togglePopup('.popup-consultation', '.button_wide', '.close');
 reviewsSlider();
 // Аккордион с часто задаваемыми вопросами
 accordion();
+// Валидация
+validate();
+// Отправка форм
+sendForm();
