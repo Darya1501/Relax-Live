@@ -1614,7 +1614,7 @@ template, [hidden] {
     display: none;
 }
 .types-repair-active {
-    display: block;
+    display: flex;
 }
 
 @media (max-width: 575px) {

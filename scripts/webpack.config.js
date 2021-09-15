@@ -6,7 +6,7 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, './dist')
   },
-  mode: 'development',
+  mode: 'production',
   module: {
     rules: [
       {
@@ -21,3 +21,4 @@ module.exports = {
     ]
   }
 };
+// production development
