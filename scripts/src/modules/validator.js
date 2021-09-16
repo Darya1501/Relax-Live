@@ -38,7 +38,8 @@ class Validator {
     if (this.method) {
       const method = this.method[elem.id];
       if (method) {
-        return method.every(item => validatorMethod[item[0]](elem, this.pattern[item[1]]));
+        const result = method.every(item => validatorMethod[item[0]](elem, this.pattern[item[1]]));
+        return result;
       }
     }
 
@@ -81,7 +82,7 @@ class Validator {
   applyStyle() {
     const style = document.createElement('style');
     style.textContent = `
-      input.success: {
+      input.success {
         border-bottom: 2px solid green !important
       }
       input.error {
@@ -100,16 +101,16 @@ class Validator {
 
   setPattern() {
     if (!this.pattern.phone) {
-      this.pattern.phone = /^\+7\(\d{3} \d{3}-\d{2}-\d{2}$/;
+      this.pattern.phone = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
     }
     if (!this.pattern.email) {
       this.pattern.email = /^\w+@\w+\.\w{2,}$/;
     }
     if (!this.pattern.name) {
-      this.pattern.name = /[а-я ]{2,}/g;
+      this.pattern.name = /[а-я ]{2,}/i;
     }
     if (!this.pattern.message) {
-      this.pattern.message = /[а-я0-9 ]/g;
+      this.pattern.message = /[а-я0-9 ]/i;
     }
   }
 }
@@ -119,7 +120,7 @@ const validate = () => {
     selector: "#feedback1",
     pattern: {},
     method: {
-      "feedback-input1": [["notEmpty"]],
+      "feedback-input1": [["notEmpty"], ["pattern", "phone"]],
     },
   });
   valid1.init();
@@ -128,8 +129,8 @@ const validate = () => {
     selector: "#feedback2",
     pattern: {},
     method: {
-      "name": [["notEmpty"], ["pattern", "name"]],
-      "feedback-input2": [["notEmpty"]],
+      "name2": [["notEmpty"], ["pattern", "name"]],
+      "feedback-input2": [["notEmpty"], ["pattern", "phone"]],
     },
   });
   valid2.init();
@@ -138,7 +139,7 @@ const validate = () => {
     selector: "#feedback3",
     pattern: {},
     method: {
-      "feedback-input3": [["notEmpty"]],
+      "feedback-input3": [["notEmpty"], ["pattern", "phone"]],
     },
   });
   valid3.init();
@@ -147,8 +148,8 @@ const validate = () => {
     selector: "#feedback4",
     pattern: {},
     method: {
-      "name": [["notEmpty"], ["pattern", "name"]],
-      "feedback-input4": [["notEmpty"]],
+      "name4": [["notEmpty"], ["pattern", "name"]],
+      "feedback-input4": [["notEmpty"], ["pattern", "phone"]],
     },
   });
   valid4.init();
@@ -157,8 +158,8 @@ const validate = () => {
     selector: "#feedback5",
     pattern: {},
     method: {
-      "name": [["notEmpty"], ["pattern", "name"]],
-      "feedback-input5": [["notEmpty"]],
+      "name5": [["notEmpty"], ["pattern", "name"]],
+      "feedback-input5": [["notEmpty"], ["pattern", "phone"]],
     },
   });
   valid5.init();
@@ -167,7 +168,7 @@ const validate = () => {
     selector: "#feedback6",
     pattern: {},
     method: {
-      "feedback-input6": [["notEmpty"]],
+      "feedback-input6": [["notEmpty"], ["pattern", "phone"]],
     },
   });
   valid6.init();
