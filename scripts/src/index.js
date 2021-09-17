@@ -1,16 +1,18 @@
-import togglePhoneList from './modules/phoneList';
-import toggleBurgerMenu from './modules/burgerMenu';
-import smoothScroll from './modules/smoothScroll';
-import phoneMask from './modules/phoneMask';
-import togglePopup from './modules/togglePopup';
-import showTooltip from './modules/showTooltip';
+import phoneMask from './modules/plugins/phoneMask.js';
+import validate from './modules/plugins/validator.js';
+import togglePopup from './modules/plugins/togglePopup.js';
+
+import togglePhoneList from './modules/phoneList.js';
+import toggleBurgerMenu from './modules/burgerMenu.js';
+import smoothScroll from './modules/smoothScroll.js';
+import showTooltip from './modules/showTooltip.js';
 import typesRepairSliders from './modules/typesRepairSliders.js';
 import porfolioSliders from './modules/porfolioSliders.js';
 import transparencyBlock from './modules/transparencyBlock.js';
 import reviewsSlider from './modules/reviewsSlider.js';
 import accordion from './modules/accordion.js';
 import sendForm from './modules/sendForm.js';
-import validate from './modules/validator.js';
+import fillRepairTypes from './modules/fillRepairTypes.js';
 
 // Дополнительный номер в хедере
 togglePhoneList();
@@ -42,3 +44,5 @@ accordion();
 validate();
 // Отправка форм
 sendForm();
+// Получение типов работ из базы данных
+fillRepairTypes();

@@ -1,82 +1,48 @@
-import togglePopup from "./togglePopup";
+import ArrowSlider from './plugins/arrowSlider.js';
 
 const transparencyBlock = () => {
-  togglePopup('.popup-transparency', '.transparency-item__img', '.close');
+  if (document.documentElement.clientWidth <= 1090) {
+    const sliderElem = document.querySelector('.transparency-item');
+    if (sliderElem.classList.contains('activate')) return;
+    sliderElem.classList.add('activate');
+
+    const popupArrowSlider = new ArrowSlider({
+      slides: '.transparency-item',
+      prev: '#transparency-arrow_left', next: '#transparency-arrow_right',
+    });
+    popupArrowSlider.init();
+  }
+  window.addEventListener('resize', transparencyBlock);
+
+
+  const popupArrowSlider = new ArrowSlider({
+    slides: '.popup-transparency-slider__slide',
+    prev: '#transparency_left', next: '#transparency_right',
+    counter: '#transparency-popup-counter',
+    infinity: true,
+  });
+  popupArrowSlider.init();
+
 
   const
     popup = document.querySelector('.popup-transparency'),
-    slides = document.querySelectorAll('.popup-transparency-slider__slide'),
-    arrowLeft = document.querySelector('#transparency_left'),
-    arrowRight = document.querySelector('#transparency_right'),
-    currentCounter = popup.querySelector('.slider-counter-content__current'),
-    sliderCounter = popup.querySelector('.slider-counter-content__total');
+    closeButtons = popup.querySelectorAll('.close'),
+    documents = document.querySelector('.transparency-slider');
 
-  sliderCounter.textContent = slides.length;
-
-  const prevSlide = (elem, index, strclass) => {
-    elem[index].classList.remove(strclass);
-  };
-  const nextSlide = (elem, index, strclass) => {
-    elem[index].classList.add(strclass);
-  };
-
-  let currentSlide = 0;
-  currentCounter.textContent = currentSlide + 1;
-  nextSlide(slides, currentSlide, 'popup-transparency-slider__slide--active');
-  arrowLeft.style.display = 'none';
-  arrowRight.style.display = 'flex';
-
-  arrowLeft.addEventListener('click', () => {
-    if (currentSlide === slides.length - 1) arrowRight.style.display = 'flex';
-    prevSlide(slides, currentSlide, 'popup-transparency-slider__slide--active');
-    currentSlide--;
-    currentCounter.textContent = currentSlide + 1;
-    nextSlide(slides, currentSlide, 'popup-transparency-slider__slide--active');
-    if (currentSlide === 0) arrowLeft.style.display = 'none';
+  documents.addEventListener('click', event => {
+    const target = event.target;
+    if (target.matches('.transparency-item__img')) {
+      const parent = target.closest('.transparency-item'),
+        currentPhoto = Array.from(documents.querySelectorAll('.transparency-item')).indexOf(parent);
+      popupArrowSlider.changeCurrentSlide(currentPhoto);
+      popup.style.visibility = 'visible';
+    }
   });
-  arrowRight.addEventListener('click', () => {
-    if (currentSlide === 0) arrowLeft.style.display = 'flex';
-    prevSlide(slides, currentSlide, 'popup-transparency-slider__slide--active');
-    currentSlide++;
-    currentCounter.textContent = currentSlide + 1;
-    nextSlide(slides, currentSlide, 'popup-transparency-slider__slide--active');
-    if (currentSlide === slides.length - 1) arrowRight.style.display = 'none';
+  closeButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      popup.style.visibility = 'hidden';
+    });
   });
-
-  if (document.documentElement.clientWidth <= 1090) {
-    const
-      slides = document.querySelectorAll('.transparency-item'),
-      arrowLeft = document.querySelector('#transparency-arrow_left'),
-      arrowRight = document.querySelector('#transparency-arrow_right');
-
-    const prevSlide = (elem, index, strclass) => {
-      elem[index].classList.remove(strclass);
-    };
-    const nextSlide = (elem, index, strclass) => {
-      elem[index].classList.add(strclass);
-    };
-
-    let currentSlide = 0;
-    nextSlide(slides, currentSlide, 'transparency-item--active');
-    arrowLeft.style.display = 'none';
-    arrowRight.style.display = 'flex';
-
-    arrowLeft.addEventListener('click', () => {
-      if (currentSlide === slides.length - 1) arrowRight.style.display = 'flex';
-      prevSlide(slides, currentSlide, 'transparency-item--active');
-      currentSlide--;
-      nextSlide(slides, currentSlide, 'transparency-item--active');
-      if (currentSlide === 0) arrowLeft.style.display = 'none';
-    });
-    arrowRight.addEventListener('click', () => {
-      if (currentSlide === 0) arrowLeft.style.display = 'flex';
-      prevSlide(slides, currentSlide, 'transparency-item--active');
-      currentSlide++;
-      nextSlide(slides, currentSlide, 'transparency-item--active');
-      if (currentSlide === slides.length - 1) arrowRight.style.display = 'none';
-    });
-  }
-  window.addEventListener('resize', transparencyBlock);
 };
 
 export default transparencyBlock;

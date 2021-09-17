@@ -46,23 +46,23 @@ class SliderCarousel {
   }
 
   addStyle() {
-    let style = document.getElementById('sliderCarousel-style');
+    let style = document.getElementById(`${this.main.classList[0]}-sliderCarousel-style`);
     if (!style) {
       style = document.createElement('style');
-      style.id = 'sliderCarousel-style';
+      style.id = `${this.main.classList[0]}-sliderCarousel-style`;
     }
 
     style.textContent = `
-      .glo-slider {
+      .${this.main.classList[0]}.glo-slider {
         overflow: hidden;
       }
-      .glo-slider__wrap {
+      .${this.wrap.classList[0]}.glo-slider__wrap {
         display: flex;
         align-items: flex-start;
         transition: transform 0.5s;
         will-change: transform;
       }
-      .glo-slider__item {
+      .${this.slides[0].classList[0]}.glo-slider__item {
         display: flex;
         flex: 0 0 ${this.options.widthSlide}%;
         position: relative;
@@ -80,23 +80,30 @@ class SliderCarousel {
   }
 
   prevSlider() {
+    this.next.style.display = 'flex';
     if (this.options.infinity || this.options.position > 0) {
       --this.options.position;
-      console.log('this.options.position: ', this.options.position);
       if (this.options.position < 0) {
         this.options.position = this.options.maxSlide;
       }
       this.wrap.style.transform = `translateX(-${this.options.position * this.options.widthSlide}%)`;
+      if (this.options.position === 0) {
+        this.prev.style.display = 'none';
+      }
     }
   }
 
   nextSlider() {
+    this.prev.style.display = 'flex';
     if (this.options.infinity || this.options.position < this.options.maxSlide) {
       ++this.options.position;
       if (this.options.position > this.options.maxSlide) {
         this.options.position = 0;
       }
       this.wrap.style.transform = `translateX(-${this.options.position * this.options.widthSlide}%)`;
+      if (this.options.position === this.options.maxSlide) {
+        this.next.style.display = 'none';
+      }
     }
   }
 

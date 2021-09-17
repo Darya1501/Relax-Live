@@ -1,4 +1,5 @@
-import SliderCarousel from "./sliderCarousel";
+import SliderCarousel from "./plugins/sliderCarousel";
+import ArrowSlider from './plugins/arrowSlider.js';
 
 const showTooltip = () => {
   const wrapper = document.querySelector('.formula>.mobile-hide');
@@ -31,8 +32,28 @@ const showTooltip = () => {
         tooltip.style.opacity = 0.1;
       }
     });
+
+    window.addEventListener('resize', () => {
+      if (document.documentElement.clientWidth > 1024) return;
+      showTooltip();
+    });
   } else {
-    const slider = new SliderCarousel({
+
+    const sliderElem = document.querySelector('.formula-slider-wrap');
+    const slides = document.querySelectorAll('.formula-slider__slide');
+
+    if (document.documentElement.clientWidth < 769) {
+      slides[0].style.display = 'none';
+      slides[7].style.display = 'none';
+    } else {
+      slides[0].style.display = 'block';
+      slides[7].style.display = 'block';
+    }
+
+    if (sliderElem.classList.contains('activate')) return;
+    sliderElem.classList.add('activate');
+
+    const sliderCarousel = new SliderCarousel({
       main: ".formula-slider-wrap", wrap: ".formula-slider",
       next: ".slider-arrow_right-formula", prev: ".slider-arrow_left-formula",
       slidesToShow: 3,
@@ -43,45 +64,17 @@ const showTooltip = () => {
         },
       ],
     });
-    slider.init();
+    sliderCarousel.init();
 
-
-    const slides = document.querySelectorAll('.formula-slider__slide'),
-      arrowLeft = document.querySelector('.slider-arrow_left-formula'),
-      arrowRight = document.querySelector('.slider-arrow_right-formula');
-
-    const prevSlide = (elem, index, strclass) => {
-      elem[index].classList.remove(strclass);
-    };
-    const nextSlide = (elem, index, strclass) => {
-      elem[index].classList.add(strclass);
-    };
-
-    if (document.documentElement.clientWidth < 769) {
-      slides[0].style.display = 'none';
-      slides[7].style.display = 'none';
-    }
-
-    let currentSlide = 1;
-    nextSlide(slides, currentSlide, 'active-item');
-    arrowLeft.style.display = 'none';
-
-    arrowLeft.addEventListener('click', () => {
-      if (currentSlide === 6) arrowRight.style.display = 'flex';
-      prevSlide(slides, currentSlide, 'active-item');
-      currentSlide--;
-      nextSlide(slides, currentSlide, 'active-item');
-      if (currentSlide === 1) arrowLeft.style.display = 'none';
+    const arrowSlider = new ArrowSlider({
+      slides: 'div.formula-slider__slide',
+      prev: '.slider-arrow_left-formula', next: '.slider-arrow_right-formula',
+      activeClass: 'active-item'
     });
-    arrowRight.addEventListener('click', () => {
-      if (currentSlide === 1) arrowLeft.style.display = 'flex';
-      prevSlide(slides, currentSlide, 'active-item');
-      currentSlide++;
-      nextSlide(slides, currentSlide, 'active-item');
-      if (currentSlide === 6) arrowRight.style.display = 'none';
-    });
+    arrowSlider.init();
+
+    window.addEventListener('resize', showTooltip);
   }
-  window.addEventListener('resize', showTooltip);
 };
 
 export default showTooltip;
