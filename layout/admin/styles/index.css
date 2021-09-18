@@ -463,6 +463,10 @@ body {
     border-bottom: 1px solid var(--grey_color);
 }
 
+.table__row.hidden {
+    display: none;
+}
+
 .table__date span:last-child {
     color: var(--txt_grey);
 }

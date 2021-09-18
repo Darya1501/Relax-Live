@@ -9056,6 +9056,9 @@ strong {
     .popup-repair-types-nav__item {
         display: none;
     }
+    .popup-repair-types-content__head {
+        display: none;
+    }
 }
 .active-slide {
     display: flex;

@@ -2,7 +2,8 @@ import ArrowSlider from './plugins/arrowSlider.js';
 
 const fillRepairTypes = () => {
   const buttons = document.querySelector('.nav-list-popup-repair'),
-    table = document.querySelector('.popup-repair-types-content-table');
+    table = document.querySelector('.popup-repair-types-content-table'),
+    title = document.getElementById('switch-inner');
 
   const goSlider = () => {
     const buttonSlider = new ArrowSlider({
@@ -11,6 +12,10 @@ const fillRepairTypes = () => {
       dotActiveClass: 'active',
     });
     buttonSlider.init();
+
+    buttons.addEventListener('click', event => {
+      if (event.target.matches('.popup-repair-types-nav__item')) title.textContent = event.target.textContent;
+    });
 
     if (document.documentElement.clientWidth < 1025) {
       const arrowSlider = new ArrowSlider({
@@ -24,6 +29,12 @@ const fillRepairTypes = () => {
       });
       tableSlider.init();
     }
+
+    const left = document.querySelector('#nav-arrow-popup-repair_left'),
+      right = document.querySelector('#nav-arrow-popup-repair_right');
+
+    left.addEventListener('click', () => title.textContent = buttons.querySelector('.active').textContent);
+    right.addEventListener('click', () => title.textContent = buttons.querySelector('.active').textContent);
   };
 
   const fillSlides = (data, typeSet) => {
