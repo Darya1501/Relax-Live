@@ -76,6 +76,24 @@ const porfolioSliders = () => {
       popupArrowSlider.changeCurrentSlide(currentPhoto);
       popupTextArrowSlider.changeCurrentSlide(currentPhoto);
       popup.style.visibility = 'visible';
+
+      const popupDialog = popup.querySelector('.popup-dialog');
+      let reqID = 0;
+      const animate = () => {
+        if (popupDialog.style.opacity < 1) {
+          popupDialog.style.opacity = 0.05 + parseFloat(popupDialog.style.opacity);
+          popupDialog.style.top = -1 + parseFloat(popupDialog.style.top) + '%';
+        } else {
+          cancelAnimationFrame(reqID);
+          return;
+        }
+        reqID = requestAnimationFrame(animate);
+      };
+      if (document.documentElement.clientWidth > 768) {
+        popupDialog.style.opacity = 0;
+        popupDialog.style.top = 20 + '%';
+        animate();
+      }
     }
   });
 

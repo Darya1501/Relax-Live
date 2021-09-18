@@ -7,6 +7,7 @@ class ArrowSlider {
     activeClass = 'active-slide',
     dotActiveClass = 'active',
     counter,
+    autoPlay = false,
 
   }) {
 
@@ -26,6 +27,7 @@ class ArrowSlider {
 
     this.currentSlide = currentSlide;
     this.infinity = infinity;
+    this.autoPlay = autoPlay;
   }
 
   init() {
@@ -44,6 +46,13 @@ class ArrowSlider {
       this.totalCouner = this.counter.querySelector('.slider-counter-content__total');
       this.currentCouner.textContent = this.currentSlide + 1;
       this.totalCouner.textContent = this.slides.length;
+    }
+
+    if (this.autoPlay) {
+      setInterval(() => {
+        const newIndex = this.currentSlide === this.maxSlideIndex ? 0 : this.currentSlide + 1;
+        this.changeSlide(newIndex);
+      }, 3000);
     }
   }
 

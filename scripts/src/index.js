@@ -13,6 +13,8 @@ import reviewsSlider from './modules/reviewsSlider.js';
 import accordion from './modules/accordion.js';
 import sendForm from './modules/sendForm.js';
 import fillRepairTypes from './modules/fillRepairTypes.js';
+import serviceSlider from './modules/serviceSlider.js';
+
 
 // Дополнительный номер в хедере
 togglePhoneList();
@@ -46,3 +48,5 @@ validate();
 sendForm();
 // Получение типов работ из базы данных
 fillRepairTypes();
+// Мобильный слайдер на главном экране
+serviceSlider();
