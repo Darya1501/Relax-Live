@@ -189,6 +189,7 @@ const
   modal = document.getElementById('modal'),
   addBtn = document.querySelector('.btn-addItem'),
   closeBtn = document.querySelector('.button__close'),
+  canselBtn = document.querySelector('.cancel-button'),
   form = modal.querySelector('form'),
   inputs = Array.from(modal.querySelectorAll('input'));
 
@@ -206,6 +207,11 @@ const openModal = (target, data) => {
 
 addBtn.addEventListener('click', () => openModal('Добавление новой'));
 closeBtn.addEventListener('click', () => {
+  modal.style.display = 'none';
+  form.dataset.type = '';
+  form.reset();
+});
+canselBtn.addEventListener('click', () => {
   modal.style.display = 'none';
   form.dataset.type = '';
   form.reset();

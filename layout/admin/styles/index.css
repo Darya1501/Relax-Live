@@ -72,7 +72,7 @@ body {
 }
 
 .svg_ui {
-    display: none; /* inline-flex; */
+    display: inline-flex;
     margin: 3px;
 }
 
