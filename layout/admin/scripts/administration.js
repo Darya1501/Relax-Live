@@ -21,9 +21,9 @@ if (!cookie.has('username') || !cookie.has('password')) {
 const
   filterInput = document.getElementById("typeItem"),
   tableBody = document.getElementById("tbody");
-tableBody.textContent = '';
 
 const fillTable = data => {
+  tableBody.textContent = '';
   let stringHTML = '';
   data.forEach(product => {
     stringHTML += `
@@ -80,6 +80,55 @@ const filter = () => {
 filterInput.addEventListener("change", filter);
 
 
+// Сортировка при клике на заголовок
+const sort = data => {
+  const header = document.querySelector('thead');
+  header.addEventListener('click', event => {
+    const target = event.target;
+
+    if (target.closest('.table-th') && !target.matches('.th-handler')) {
+      let reverce = false;
+
+      if (target.closest('.table-th').classList.contains('active')) {
+        const svg = target.closest('.table-th').querySelector('.svg_ui');
+        if (svg.classList.contains('reverce')) {
+          svg.classList.remove('reverce');
+          reverce = false;
+        } else {
+          svg.classList.add('reverce');
+          reverce = true;
+        }
+      } else {
+        header.querySelectorAll('.table-th').forEach(title => {
+          title.classList.remove('active');
+          const svg = title.querySelector('.svg_ui');
+          if (svg) svg.style.display = 'none';
+        });
+        target.closest('.table-th').classList.add('active');
+        target.closest('.table-th').querySelector('.svg_ui').style.display = 'inline';
+        reverce = false;
+      }
+
+      const param = target.closest('.table-th').classList[1].slice(3);
+
+      if (param === 'id' || param === 'cost') {
+        reverce ? data.sort((a, b) => (b[param] - a[param])) : data.sort((a, b) => (a[param] - b[param]));
+      } else {
+        data.sort((a, b) => {
+          const nameA = a[param].toLowerCase(), nameB = b[param].toLowerCase();
+          if (nameA < nameB)
+            return reverce ? 1 : -1;
+          if (nameA > nameB)
+            return reverce ? -1 : 1;
+          return 0;
+        });
+      }
+      fillTable(data);
+    }
+  });
+};
+
+
 // Получение данных
 const getAllInfo = () => {
   fetch('http://localhost:3000/api/items')
@@ -99,6 +148,10 @@ const getAllInfo = () => {
     })
     .then(data => {
       filter();
+      return data;
+    })
+    .then(data => {
+      sort(data);
       return data;
     })
     .catch(error => console.error(error));
@@ -210,7 +263,3 @@ sendBtn.addEventListener('click', event => {
     console.log('Неудача');
   }
 });
-
-
-
-

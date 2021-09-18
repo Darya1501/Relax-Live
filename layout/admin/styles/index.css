@@ -72,8 +72,12 @@ body {
 }
 
 .svg_ui {
-    display: inline-flex;
+    display: none; /* inline-flex; */
     margin: 3px;
+}
+
+.svg_ui.reverce svg {
+    transform: rotate(180deg);
 }
 
 .svg__loader {
@@ -420,7 +424,7 @@ body {
     scroll-snap-align: start;
 }
 
-.table-th:first-child {
+.table-th.active {
     color: var(--firm_color);
 }
 
