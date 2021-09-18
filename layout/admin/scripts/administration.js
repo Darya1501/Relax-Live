@@ -16,6 +16,17 @@ if (!cookie.has('username') || !cookie.has('password')) {
   window.location.href = './index.html';
 }
 
+// Поиск
+const searchInput = document.getElementById('search'),
+  clearBtn = document.getElementById('clear');
+searchInput.addEventListener('keydown', event => {
+  if (event.key === 'Enter')
+    window.location.href = `table.html${searchInput.value ? "?search=" + searchInput.value : ''}`;
+});
+clearBtn.addEventListener('click', () => {
+  window.location.href = `table.html`;
+});
+
 
 // Заполнение таблицы и фильтра
 const
@@ -23,36 +34,48 @@ const
   tableBody = document.getElementById("tbody");
 
 const fillTable = data => {
+  const query = decodeURI((new URL(document.location)).searchParams.get("search")).toLowerCase();
   tableBody.textContent = '';
   let stringHTML = '';
+
   data.forEach(product => {
-    stringHTML += `
-      <tr class="table__row">
-        <td class="table__id table__cell">${product['id']}</td>
-        <td class="table-type table__cell">${product['type']}</td>
-        <td class="table-name table__cell">${product['name']}</td>
-        <td class="table-units table__cell">${product['units']}</td>
-        <td class="table-cost table__cell">${product['cost']}</td>
-        <td>
-          <div class="table__actions table__cell">
-            <button class="button action-change">
-              <span class="svg_ui">
-                <svg class="action-icon_change"><use xlink:href="./img/sprite.svg#change"></use></svg>
-              </span>
-              <span>Изменить</span>
-            </button>
-            <button class="button action-remove">
-              <span class="svg_ui">
-                <svg class="action-icon_remove"><use xlink:href="./img/sprite.svg#remove"></use></svg>
-              </span>
-              <span>Удалить</span>
-            </button>
-          </div>
-        </td>
-      </tr>
-    `;
+    const prodHTML = `
+        <tr class="table__row">
+          <td class="table__id table__cell">${product['id']}</td>
+          <td class="table-type table__cell">${product['type']}</td>
+          <td class="table-name table__cell">${product['name']}</td>
+          <td class="table-units table__cell">${product['units']}</td>
+          <td class="table-cost table__cell">${product['cost']}</td>
+          <td>
+            <div class="table__actions table__cell">
+              <button class="button action-change">
+                <span class="svg_ui">
+                  <svg class="action-icon_change"><use xlink:href="./img/sprite.svg#change"></use></svg>
+                </span>
+                <span>Изменить</span>
+              </button>
+              <button class="button action-remove">
+                <span class="svg_ui">
+                  <svg class="action-icon_remove"><use xlink:href="./img/sprite.svg#remove"></use></svg>
+                </span>
+                <span>Удалить</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      `;
+
+    if (query && query !== 'null') {
+      console.log('query: ', query);
+      let productString = product['id'] + product['type'] + product['name'] + product['units'] + product['cost'];
+      productString = productString.toLowerCase();
+      if (productString.indexOf(query) !== -1) {
+        const queryExp = new RegExp(query, 'gi');
+        stringHTML += prodHTML.replace(queryExp, `<mark>$&</mark>`);
+      } else { stringHTML += ''; }
+    } else { stringHTML += prodHTML; }
   });
-  tableBody.insertAdjacentHTML('afterbegin', stringHTML);
+  tableBody.insertAdjacentHTML('afterbegin', stringHTML ? stringHTML : '<tr class="table__row">ничего не найдено</tr>');
 };
 const fillFilter = types => {
   types.forEach(type => {

@@ -11,12 +11,19 @@
 	<main class="main">
 		<div id="container" class="container">
 			<h1 class="title-page">Список услуг</h1>
-			<label>
-				<select name="typeItem" id="typeItem">
-					<option value="Все услуги">Все услуги</option>
-				</select>
-				выбрать тип
-			</label>
+			<div class="filters">
+				<label>
+					<select name="typeItem" id="typeItem">
+						<option value="Все услуги">Все услуги</option>
+					</select>
+					выбрать тип
+				</label>
+				<div class="search">
+					<label for="search">Введите запрос и нажмите enter:</label>
+					<input type="text" id="search" name="search" />
+					<span id="clear">Сбросить</span>
+				</div>
+			</div>
 			<div class="table__wrapper">
 				<table id="table" class="table">
 					<thead>

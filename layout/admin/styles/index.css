@@ -356,7 +356,7 @@ body {
 
 }
 
-.input:focus {
+.input:focus, #search {
     outline: none;
 }
 
@@ -586,4 +586,20 @@ body {
     width: 17px;
     height: 17px;
     fill: var(--txt_grey);
+}
+
+.filters {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.search {
+    margin-left: 40px;
+}
+
+#clear {
+    cursor: pointer;
+}
+#clear:hover {
+    text-decoration: underline
 }
