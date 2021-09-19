@@ -254,7 +254,10 @@ tableBody.addEventListener('click', event => {
     openModal('Изменение', product);
   } else if (target.closest('.action-remove')) {
     const id = target.closest('.table__row').querySelector('.table__id').textContent;
-    deleteData(id);
+    const name = target.closest('.table__row').querySelector('.table-name').textContent;
+    const result = confirm('Подтвердите удаление товара: \n id:' + id + ', название: ' + name);
+    if (result) { deleteData(id); getAllInfo(); }
+    return;
   }
 });
 
@@ -284,11 +287,21 @@ sendBtn.addEventListener('click', event => {
     });
 
     if (form.dataset.type === "add") {
-      postData(body);
+      postData(body)
+        .then(() => {
+          getAllInfo();
+          modal.style.display = 'none';
+          form.dataset.type = '';
+          form.reset();
+        });
     } else if (form.dataset.type === "change") {
-      changeData(form.dataset.id, body);
+      changeData(form.dataset.id, body)
+        .then(() => {
+          getAllInfo();
+          modal.style.display = 'none';
+          form.dataset.type = '';
+          form.reset();
+        });
     }
-  } else {
-    console.log('Неудача');
   }
 });
