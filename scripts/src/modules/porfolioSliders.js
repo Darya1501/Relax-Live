@@ -97,10 +97,13 @@ const porfolioSliders = () => {
     }
   });
 
-  closeButtons.forEach(button => {
-    button.addEventListener('click', () => {
+  popup.addEventListener('click', event => {
+    const target = event.target;
+    if (target.closest('.close')) {
       popup.style.visibility = 'hidden';
-    });
+    } else if (!target.closest('.popup-dialog')) {
+      popup.style.visibility = 'hidden';
+    }
   });
 };
 

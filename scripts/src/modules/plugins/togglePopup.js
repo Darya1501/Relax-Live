@@ -1,7 +1,6 @@
 const togglePopup = (popupSelector, openButtonsSelector, closeButtonSelector) => {
   const popup = document.querySelector(popupSelector),
     openButtons = document.querySelectorAll(openButtonsSelector),
-    closeButtons = popup.querySelectorAll(closeButtonSelector),
     popupDialog = popup.querySelector('.popup-dialog') || popup.children[0];
 
   openButtons.forEach(button => {
@@ -28,10 +27,13 @@ const togglePopup = (popupSelector, openButtonsSelector, closeButtonSelector) =>
     });
   });
 
-  closeButtons.forEach(button => {
-    button.addEventListener('click', () => {
+  popup.addEventListener('click', event => {
+    const target = event.target;
+    if (target.closest(closeButtonSelector)) {
       popup.style.visibility = 'hidden';
-    });
+    } else if (!target.closest(popupDialog)) {
+      popup.style.visibility = 'hidden';
+    }
   });
 };
 

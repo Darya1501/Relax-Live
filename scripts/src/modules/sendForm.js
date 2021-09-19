@@ -42,6 +42,7 @@ const sendForm = () => {
             });
           });
           form.reset();
+          if (form.id === 'feedback6') document.querySelector('.popup-consultation').style.visibility = 'hidden';
         })
         .catch(
           error => {

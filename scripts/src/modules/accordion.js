@@ -17,7 +17,6 @@ const accordion = () => {
 
   wrapper.addEventListener('click', event => {
     const target = event.target;
-    console.log('target: ', target);
     if (!target.matches('h2')) return;
     prevSlide(tabs, currentTab, 'msg-active');
     currentTab = tabs.indexOf(target);
